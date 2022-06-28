@@ -25,6 +25,9 @@ public class ExampleConfiguration {
         players.add(new Player(7L, "Carlitos", "Tevez", LocalDate.of(1984, 2, 5)));
         players.add(new Player(8L, "Franco", "Armani", LocalDate.of(1986, 10, 16)));
 
+        //Agrego uno mas:
+        players.add(new Player(9L, "Lionel", "Scaloni", LocalDate.of(1980, 6, 20)));
+
         return players;
 
     }
