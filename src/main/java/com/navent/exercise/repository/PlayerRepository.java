@@ -12,6 +12,16 @@ public class PlayerRepository {
     private List<Player> playerList;
 
     public List<Player> getPlayerList() {
+
         return playerList;
     }
-}
+
+
+
+    }
+
+//    // para agregar un jugador
+//    public void save(Player player){
+//        playerList.add(player);
+//    }
+
