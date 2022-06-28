@@ -25,7 +25,7 @@ public class PlayerController {
    public Player getPlayerById(@PathVariable(value = "id", required = true) Long id){
        return playerServices.getPlayerById(id);
    }
-   @GetMapping (value = "/")
+   @GetMapping (value = "/name")
    public List<Player> getPlayersByName(@RequestParam (value = "name") String name) {
        return playerServices.getPlayersByName(name);
    }
