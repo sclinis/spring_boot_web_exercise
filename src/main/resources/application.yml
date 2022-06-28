@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: spring-web-exercise
+
+server:
+  port: 8080
