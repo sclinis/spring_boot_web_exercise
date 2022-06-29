@@ -1,6 +1,6 @@
 package com.navent.exercise.validator;
 
-import com.navent.exercise.rest.PlayerDTO;
+import com.navent.exercise.rest.dto.PlayerDTO;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,8 +1,21 @@
 spring:
   profiles:
     active: dev
+
   application:
     name: spring-web-exercise
 
 server:
   port: 8080
+
+configuration:
+  ejemplo: Hola
+
+  pokemons:
+    url: https://pokeapi.co/api/v2/pokemon/pikachu
+  pokemons-feign:
+    api: https://pokeapi.co/api/v2
+
+  leads:
+    validation:
+      url: http://validation.prd.rlead.re.navent.biz/

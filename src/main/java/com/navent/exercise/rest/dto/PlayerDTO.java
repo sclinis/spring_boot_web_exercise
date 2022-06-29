@@ -1,4 +1,4 @@
-package com.navent.exercise.rest;
+package com.navent.exercise.rest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
