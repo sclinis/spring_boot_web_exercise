@@ -14,4 +14,6 @@ public class Player {
     private String name;
     private String surname;
     private LocalDate birthday;
+    private Integer totalGoals;
+    private Boolean active;
 }
