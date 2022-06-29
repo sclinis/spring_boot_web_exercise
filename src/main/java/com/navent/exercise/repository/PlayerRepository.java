@@ -14,4 +14,17 @@ public class PlayerRepository {
     public List<Player> getPlayerList() {
         return playerList;
     }
+
+    public void savePlayer(Player player){
+        playerList.add(player);
+    }
+
+    public void updatePlayer(Player player) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).getId() == player.getId()){
+                playerList.set(i, player);
+                break;
+            }
+        }
+    }
 }
