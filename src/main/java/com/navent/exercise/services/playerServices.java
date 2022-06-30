@@ -1,4 +1,4 @@
-package com.navent.exercise;
+package com.navent.exercise.services;
 
 import com.navent.exercise.model.Player;
 import com.navent.exercise.repository.PlayerRepository;
@@ -33,6 +33,22 @@ public class playerServices {
         }
         return playersByName;
     }
+    // método que actualiza la cantidad de goles
+    public Player updateGoals(Player player) {
+        List<Player> players = playerRepository.getPlayerList();
+        Player playerFound = players.stream().filter(p -> player.getId().equals(p.getId())).findAny().get();
+        playerFound.setNumbersOfGoals(player.getNumbersOfGoals());
+        playerRepository.updatePlayer(playerFound);
+        return playerFound;
+
+    }
+    public void enablePlay(Player player) {
+        playerRepository.updatePlayer(player);
+    }
+    public Player getPlayerWithMaxGoals() {
+        return playerRepository.getPlayerList().stream().max(new PlayerComparator()).get();
+    }
+
 
 }
 

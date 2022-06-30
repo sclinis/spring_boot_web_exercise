@@ -12,6 +12,7 @@ public class PlayerRepository {
     private List<Player> playerList;
 
     public List<Player> getPlayerList() {
+
         return playerList;
     }
 
@@ -21,6 +22,18 @@ public class PlayerRepository {
     }
 
     private Long getLastId(){
+
         return playerList.stream().map(Player::getId).max(Long::compare).orElse(0L);
     }
+
+    public void updatePlayer(Player player) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).getId() == player.getId()){
+                player.setPlay(!player.getPlay());
+                playerList.set(i, player);
+                break;
+            }
+        }
+    }
+
 }
