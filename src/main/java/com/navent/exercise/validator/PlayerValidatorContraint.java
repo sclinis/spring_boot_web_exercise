@@ -13,6 +13,6 @@ public class PlayerValidatorContraint implements ConstraintValidator<ValidPlayer
 
     @Override
     public boolean isValid(PlayerDTO value, ConstraintValidatorContext context) {
-        return (value.getName() == null);
+        return (value.getName() != null);
     }
 }

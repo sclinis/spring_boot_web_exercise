@@ -18,7 +18,7 @@ public class ExceptionAdvicer {
     @ResponseBody
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     public Error handle(HttpServletRequest req, MethodArgumentNotValidException exception) {
-        log.info("Exception hija: {}", exception.getMessage());   //<<<<--- la fomra correcta de escribir en el log
+        log.info("Exception hija: {}", exception.getMessage());
         return null;
     }
 
@@ -26,7 +26,7 @@ public class ExceptionAdvicer {
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Error handle(HttpServletRequest req, Exception exception) {
-        log.error("Exception padre: {}", exception.getMessage());   //<<<<--- la fomra correcta de escribir en el log
+        log.error("Exception padre: {}", exception.getMessage());
         return null;
     }
 

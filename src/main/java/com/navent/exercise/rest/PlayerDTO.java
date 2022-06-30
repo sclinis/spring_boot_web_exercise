@@ -15,5 +15,11 @@ public class PlayerDTO {
     private String name;
     @NotNull
     private String surname;
+    @NotNull
     private LocalDate birthday;
+    @NotNull
+    private int numberOfGoals;
+    @NotNull
+    private boolean isRetired;
+
 }
