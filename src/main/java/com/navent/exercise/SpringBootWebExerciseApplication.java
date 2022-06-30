@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootWebExerciseApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(SpringBootWebExerciseApplication.class, args);
 	}
 
