@@ -16,7 +16,7 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping("/allplayers")
+    @GetMapping("/allPlayers")
     public List<Player> getPlayerList() {
         return playerService.getPlayersList();
     }
@@ -31,7 +31,24 @@ public class PlayerController {
         return playerService.getPlayersByNameList(name);
     }
 
+    @PostMapping("/savePlayer")
+    public Player postPlayer(@RequestBody PlayerDTO playerDTO) {
+        return playerService.savePlayer(playerDTO);
+    }
 
+    @PatchMapping("/updatePlayerGoals/{playerId}")
+    public Player updatePlayerGoals(@PathVariable (value = "playerId") Long playerId, @RequestParam (value = "goals") Integer goals) {
+       return playerService.updatePlayerGoals(playerId, goals);
+    }
 
+    @PutMapping("/updatePlayerCondition/{playerId}")
+    public Player updatePlayerCondition(@PathVariable (value = "playerId") Long playerId, @RequestParam (value = "isRetired") Boolean retired) {
+        return playerService.updatePlayerCondition(playerId, retired);
+    }
+
+    @GetMapping("/getMaxGoalsPlayer")
+    public Player getMaxGoalsPlayer() {
+        return playerService.getMaxGoalsPlayer();
+    }
 
 }

@@ -15,6 +15,14 @@ public class PlayerRepository {
         return playerList;
     }
 
+    public void save(Player player){
+        player.setId(this.getLastId() +1 );
+        playerList.add(player);
+    }
+
+    private Long getLastId(){
+        return playerList.stream().map(Player::getId).max(Long::compare).orElse(0L);
+    }
 
 
 }
