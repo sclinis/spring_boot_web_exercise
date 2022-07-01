@@ -23,6 +23,4 @@ public class PlayerRepository {
     private Long getLastId(){
         return playerList.stream().map(Player::getId).max(Long::compare).orElse(0L);
     }
-
-
 }
