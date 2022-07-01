@@ -2,15 +2,9 @@ package com.navent.exercise.configuration;
 
 import com.google.common.collect.Lists;
 import com.navent.exercise.model.Player;
-import feign.RequestInterceptor;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,11 +12,7 @@ import java.util.List;
 @Data
 public class ExampleConfiguration {
 
-    @Value("${configuration.ejemplo}")
-    private String example;
 
-    @Autowired
-    private UserAgentInterceptor userAgentInterceptor;
 
     @Bean
     public List<Player> initPlayerList() {
@@ -42,23 +32,4 @@ public class ExampleConfiguration {
         return players;
 
     }
-
-    @Bean
-    public RestTemplate apiTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder
-                //.setConnectTimeout(connectionTimeout)
-                //.setReadTimeout(readTimeout)
-                .additionalInterceptors(userAgentInterceptor)
-                .build();
-    }
-
-
-
-    @Bean
-    public RequestInterceptor requestInterceptor() {
-        return requestTemplate -> {
-            requestTemplate.header("User-Agent", "Example");
-        };
-    }
-
 }
