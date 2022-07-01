@@ -1,17 +1,12 @@
 package com.navent.exercise.rest;
 
-import com.navent.exercise.configuration.ExampleConfiguration;
 import com.navent.exercise.model.Player;
-import com.navent.exercise.repository.PlayerRepository;
-import com.navent.exercise.rest.dto.PlayerDTO;
-import com.navent.exercise.validator.ValidPlayer;
+import com.navent.exercise.services.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 
 @RestController
 @RequestMapping("players")
@@ -20,29 +15,40 @@ import java.util.List;
 public class PlayerController {
 
     @Autowired
-    private PlayerRepository playerRepository;
+    private PlayerService playerService;
 
-    @Autowired
-    private ExampleConfiguration config;
-
-    @GetMapping
-    public List<Player> getPlayerList(){
-        log.info(config.getExample());
-        return playerRepository.getPlayerList();
+    @GetMapping("/allPlayers")
+    public List<Player> getPlayerList() {
+        return playerService.getPlayersList();
     }
 
+    @GetMapping("/{playerId}")
+    public Player getPlayerById(@PathVariable (value = "playerId") Long playerId) {
+        return playerService.getPlayerById(playerId);
+    }
 
-    //AGREGAR UN JUGADOR
-    @PostMapping("/save")
-    public Player postPlayer( @ValidPlayer @RequestBody PlayerDTO playerDTO){
-        log.trace("Entra en controller");
-        Player player = new Player();
-        player.setBirthday(playerDTO.getBirthday());
-        player.setName(playerDTO.getName());
-        player.setSurname(playerDTO.getSurname());
-        log.info("Modifico player");
-        playerRepository.save(player);
-        log.debug("Sale del controller");
-        return player;
+    @GetMapping("/getPlayerBy")
+    public List<Player> getPlayersByName(@RequestParam (value = "name") String name) {
+        return playerService.getPlayersByNameList(name);
+    }
+
+    @PostMapping("/savePlayer")
+    public Player postPlayer(@RequestBody PlayerDTO playerDTO) {
+        return playerService.savePlayer(playerDTO);
+    }
+
+    @PatchMapping("/updatePlayerGoals/{playerId}")
+    public Player updatePlayerGoals(@PathVariable (value = "playerId") Long playerId, @RequestParam (value = "goals") Integer goals) {
+       return playerService.updatePlayerGoals(playerId, goals);
+    }
+
+    @PutMapping("/updatePlayerCondition/{playerId}")
+    public Player updatePlayerCondition(@PathVariable (value = "playerId") Long playerId, @RequestParam (value = "isRetired") Boolean retired) {
+        return playerService.updatePlayerCondition(playerId, retired);
+    }
+
+    @GetMapping("/getMaxGoalsPlayer")
+    public Player getMaxGoalsPlayer() {
+        return playerService.getMaxGoalsPlayer();
     }
 }

@@ -1,16 +1,11 @@
-package com.navent.exercise.model;
+package com.navent.exercise.rest;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Player {
-    private Long id;
+public class PlayerDTO {
     private String name;
     private String surname;
     private LocalDate birthday;
