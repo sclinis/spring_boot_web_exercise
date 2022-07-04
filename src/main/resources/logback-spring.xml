@@ -4,89 +4,6 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <springProfile name="stg">
-
-        <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-            <destination>xlcld-prd-logstash-lb-1.navent.biz:4560</destination>
-
-            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-                <providers>
-                    <mdc/> <!-- MDC variables on the Thread will be written as JSON fields-->
-                    <context/> <!--Outputs entries from logback's context -->
-                    <version/> <!-- Logstash json format version, the @version field in the output-->
-                    <logLevel/>
-                    <loggerName/>
-
-                    <pattern>
-                        <pattern> <!-- we can add some custom fields to be sent with all the log entries. -->
-                            {      <!--make filtering easier in Logstash-->
-                            "appName": "leads-notifier-stg"
-                            }
-                        </pattern>
-                    </pattern>
-
-                    <threadName/>
-                    <message/>
-
-                    <logstashMarkers/> <!-- Useful so we can add extra information for specific log lines as Markers-->
-                    <arguments/> <!--or through StructuredArguments-->
-
-                    <stackTrace/>
-                </providers>
-            </encoder>
-        </appender>
-
-        <appender name="Stash-Async-Appender" class="ch.qos.logback.classic.AsyncAppender">
-            <appender-ref ref="STASH"/>
-        </appender>
-
-        <root level="INFO">
-            <appender-ref ref="Stash-Async-Appender"/>
-        </root>
-        <logger name="com.navent" level="DEBUG" additivity="false">
-            <appender-ref ref="Stash-Async-Appender"/>
-        </logger>
-
-    </springProfile>
-
-    <springProfile name="prd">
-        <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-            <destination>xlcld-prd-logstash-lb-1.navent.biz:4560</destination>
-
-            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-                <providers>
-                    <mdc/> <!-- MDC variables on the Thread will be written as JSON fields-->
-                    <context/> <!--Outputs entries from logback's context -->
-                    <version/> <!-- Logstash json format version, the @version field in the output-->
-                    <logLevel/>
-                    <loggerName/>
-
-                    <pattern>
-                        <pattern> <!-- we can add some custom fields to be sent with all the log entries. -->
-                            {      <!--make filtering easier in Logstash-->
-                            "appName": "leads-notifier-prd"
-                            }
-                        </pattern>
-                    </pattern>
-
-                    <threadName/>
-                    <message/>
-
-                    <logstashMarkers/> <!-- Useful so we can add extra information for specific log lines as Markers-->
-                    <arguments/> <!--or through StructuredArguments-->
-
-                    <stackTrace/>
-                </providers>
-            </encoder>
-        </appender>
-        <appender name="Stash-Async-Appender" class="ch.qos.logback.classic.AsyncAppender">
-            <appender-ref ref="STASH"/>
-        </appender>
-        <root level="INFO">
-            <appender-ref ref="Stash-Async-Appender"/>
-        </root>
-    </springProfile>
-
     <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
@@ -95,5 +12,12 @@
             <appender-ref ref="CONSOLE"/>
         </logger>
     </springProfile>
-
+    <springProfile name="stg">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="com.navent" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+    </springProfile>
 </configuration>
