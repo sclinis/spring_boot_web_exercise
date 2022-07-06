@@ -11,6 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class SpringBootWebExerciseApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(SpringBootWebExerciseApplication.class, args);
 	}
 

@@ -23,4 +23,10 @@ public class PlayerRepository {
     private Long getLastId(){
         return playerList.stream().map(Player::getId).max(Long::compare).orElse(0L);
     }
+
+    //method que me permita agregar new player
+//    public void save(Player player){
+//        player.setId(this.getLastId() +1);
+//        playerList.add(player);
+//    }
 }
