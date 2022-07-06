@@ -45,7 +45,6 @@ public class PlayerController {
     }
 
 
-    //AGREGAR UN JUGADOR
     @PostMapping("/save")
     public Player postPlayer( @ValidPlayer @RequestBody PlayerDTO playerDTO){
         log.trace("Entra en controller");
@@ -59,8 +58,18 @@ public class PlayerController {
         return player;
     }
 
-    @PatchMapping("/updateGoalsByPlayerName")
-    public void updateGoalsByPlayerName (@RequestBody String name, Integer goals){
+    @PatchMapping("/updateGoalsByPlayerName/{name}")
+    public void updateGoalsByPlayerName (@PathVariable String name, @RequestParam Integer goals){
         playerService.updateGoalsByName(name, goals);
+    }
+
+    @PutMapping("/changeRetiredState")
+    public void changeRetiredState(@RequestParam String name, Boolean retired){
+        playerService.changeRetiredState(name, retired);
+    }
+
+    @GetMapping("/getPlayerWithMostGoals")
+    public Player getPlayerWithMostGoals(){
+        return playerService.getPlayerWithMostGoals();
     }
 }
