@@ -1,19 +1,19 @@
-package com.navent.exercise.model;
+package com.navent.exercise.rest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Player {
-    private Long id;
+public class PlayerDTO {
+    @NotNull
     private String name;
+    @NotNull
     private String surname;
     private LocalDate birthday;
-    private Integer countGoals;
-    private Boolean isRetired;
 }

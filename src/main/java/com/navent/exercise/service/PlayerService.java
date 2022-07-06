@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 @Service
 public class PlayerService {
     private ExampleConfiguration exampleConfiguration;
@@ -19,19 +22,31 @@ public class PlayerService {
     //List<Player> playerList = exampleConfiguration.initPlayerList();
 
 
-    @GetMapping
+//    public Player getNameById(Long id){
+//        Player find = new Player(); //Se puede declarar también como private Player player;
+//        for(Player pl: playerRepository.getPlayerList()){
+//            if(pl.getId().equals(id)){
+//                find = pl;
+//                break;
+//            }
+//            else{
+//                find = null;
+//            }
+//        }
+//        return find;
+//    }
+
     public Player getNameById(Long id){
-        Player find = new Player(); //Se puede declarar también como private Player player;
-        for(Player pl: playerRepository.getPlayerList()){
-            if(pl.getId().equals(id)){
-                find = pl;
-                break;
-            }
-            else{
-                find = null;
-            }
-        }
-        return find;
+        List<Player> result = exampleConfiguration.initPlayerList().stream()
+                .filter(item -> item.equals(id))
+                .collect(Collectors.toList());
+                if(!result.isEmpty()){
+                    return (Player)result;
+                }
+                else {
+                    return null;
+                }
+
     }
 
     @GetMapping
