@@ -1,9 +1,9 @@
 package com.navent.exercise.rest;
 
-import com.navent.exercise.configuration.ExampleConfiguration;
 import com.navent.exercise.model.Player;
 import com.navent.exercise.repository.PlayerRepository;
 import com.navent.exercise.rest.dto.PlayerDTO;
+import com.navent.exercise.services.PlayerService;
 import com.navent.exercise.validator.ValidPlayer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +20,31 @@ import java.util.List;
 public class PlayerController {
 
     @Autowired
-    private PlayerRepository playerRepository;
-
+    PlayerService playerService;
     @Autowired
-    private ExampleConfiguration config;
+    PlayerRepository playerRepository;
 
     @GetMapping
     public List<Player> getPlayerList(){
-        log.info(config.getExample());
-        return playerRepository.getPlayerList();
+        return playerService.getPlayerList();
+    }
+
+    @GetMapping("/{playerId}")
+    public Player getPlayerById(@PathVariable (value = "playerId" , required = true) Long playerId){
+        return playerService.getPlayerById(playerId);
+    }
+
+    @GetMapping("playersByName")
+    public List<Player> getFilteredPlayerList(@RequestParam (value = "name" , required = true) String name){
+        return playerService.getFilteredPlayerList(name);
+    }
+
+    @PostMapping("/savePlayer")
+    public void postPlayer(@RequestBody Player player){
+        playerRepository.save(player);
     }
 
 
-    //AGREGAR UN JUGADOR
     @PostMapping("/save")
     public Player postPlayer( @ValidPlayer @RequestBody PlayerDTO playerDTO){
         log.trace("Entra en controller");
@@ -44,5 +56,20 @@ public class PlayerController {
         playerRepository.save(player);
         log.debug("Sale del controller");
         return player;
+    }
+
+    @PatchMapping("/updateGoalsByPlayerName/{name}")
+    public void updateGoalsByPlayerName (@PathVariable String name, @RequestParam Integer goals){
+        playerService.updateGoalsByName(name, goals);
+    }
+
+    @PutMapping("/changeRetiredState")
+    public void changeRetiredState(@RequestParam String name, Boolean retired){
+        playerService.changeRetiredState(name, retired);
+    }
+
+    @GetMapping("/getPlayerWithMostGoals")
+    public Player getPlayerWithMostGoals(){
+        return playerService.getPlayerWithMostGoals();
     }
 }

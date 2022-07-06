@@ -8,11 +8,22 @@ import java.util.List;
 
 @Repository
 public class PlayerRepository {
+
     @Autowired
     private List<Player> playerList;
 
     public List<Player> getPlayerList() {
         return playerList;
+    }
+
+    public Player getPlayerWithMostGoals(){
+        Player playerToReturn = playerList.get(2);
+        for(Player playerTemp : playerList){
+            if (playerToReturn.getGoals() < playerTemp.getGoals()){
+                playerToReturn = playerTemp;
+            }
+        }
+        return playerToReturn;
     }
 
     public void save(Player player){
